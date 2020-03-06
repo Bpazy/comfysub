@@ -2,17 +2,30 @@ package main
 
 import (
 	"encoding/base64"
+	"github.com/gin-gonic/gin"
 	"github.com/go-resty/resty/v2"
 	"github.com/pkg/errors"
 	"log"
+	"net/http"
 )
 
 func main() {
-	ssContent, err := ssd2ss()
+	r := gin.Default()
+	r.GET("/ssd2ss", ssd2ssHandler())
+	err := r.Run()
 	if err != nil {
 		log.Fatalf("%+v\n", err)
 	}
-	log.Println(ssContent)
+}
+
+func ssd2ssHandler() func(c *gin.Context) {
+	return func(c *gin.Context) {
+		ss, err := ssd2ss(c.Query("url"))
+		if err != nil {
+			c.String(http.StatusInternalServerError, err.Error())
+		}
+		c.String(200, ss)
+	}
 }
 
 func ssd2ss(url string) (string, error) {

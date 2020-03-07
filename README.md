@@ -7,6 +7,7 @@
 ```
 $ chmod +x ...
 $ ./gfw-converter -port :8080 
+$ curl http://127.0.0.1:8080/ssd2ss?url=http://airport.org/ssd-subscription
 ```
 
 ## 支持状况

@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/base64"
 	"encoding/json"
+	"flag"
 	"github.com/gin-gonic/gin"
 	"github.com/go-resty/resty/v2"
 	"github.com/pkg/errors"
@@ -12,11 +13,17 @@ import (
 	"strconv"
 )
 
+var port string
+
+func init() {
+	flag.StringVar(&port, "port", ":8080", "server port")
+	flag.Parse()
+}
+
 func main() {
 	r := gin.Default()
 	r.GET("/ssd2ss", ssd2ssHandler())
-	err := r.Run()
-	if err != nil {
+	if err := r.Run(port); err != nil {
 		log.Fatalf("%+v\n", err)
 	}
 }

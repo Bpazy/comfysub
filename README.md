@@ -1,6 +1,14 @@
 # gfw-converter
 订阅间互相转换
 
+## 使用
+1. 在 releases 中下载；
+2. 运行：
+```
+$ chmod +x ...
+$ ./gfw-converter -port :8080 
+```
+
 ## 支持状况
 1. [x] ShadowsocksD -> Shadowsocks(SIP002)
 

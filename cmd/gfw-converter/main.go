@@ -34,10 +34,13 @@ func ssd2ssHandler() func(c *gin.Context) {
 			ss, err := ssd2ss(ssdUrl)
 			if err != nil {
 				c.String(http.StatusInternalServerError, err.Error())
+				return
 			}
 			c.String(200, ss)
+			return
 		}
 		c.String(http.StatusInternalServerError, "param \"url\" is required")
+		return
 	}
 }
 

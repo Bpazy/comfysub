@@ -1,5 +1,6 @@
 # comfysub 
-畅想订阅（Comfortable subscription），适用于 Shadowsocks, V2ray 等订阅间互相转换。
+Comfortable subscription, 徜徉订阅。  
+适用于 Shadowsocks, V2ray 等订阅间互相转换。
 
 ## 支持状况
 1. [x] ShadowsocksD -> Shadowsocks(SIP002)
@@ -9,7 +10,7 @@
 2. 运行：
 ```
 $ chmod +x ...
-$ ./gfw-converter -port :8080 
+$ ./comfysub -port :8080 
 $ curl http://127.0.0.1:8080/ssd2ss?url=http://airport.org/ssd-subscription
 ```
 ## 附录

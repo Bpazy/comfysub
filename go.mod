@@ -1,4 +1,4 @@
-module github.com/Bpazy/gfw-converter
+module github.com/Bpazy/comfysub
 
 go 1.13
 

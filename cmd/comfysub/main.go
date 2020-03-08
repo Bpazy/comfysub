@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-resty/resty/v2"
 	"github.com/pkg/errors"
+	"html/template"
 	"log"
 	"net/http"
 	"net/url"
@@ -20,8 +21,25 @@ func init() {
 	flag.Parse()
 }
 
+var ssd2ssHomePageHtml = template.Must(template.New("ssd2ssHomePageHtml").Parse(`
+<html>
+<head>
+  <title>comfysub</title>
+</head>
+<body>
+  <span>Here is <a href="https://github.com/Bpazy/comfysub">comfysub</a></span>
+</body>
+</html>
+`))
+
 func main() {
 	r := gin.Default()
+
+	r.SetHTMLTemplate(ssd2ssHomePageHtml)
+	r.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "ssd2ssHomePageHtml", nil)
+	})
+
 	r.GET("/ssd2ss", ssd2ssHandler())
 	if err := r.Run(port); err != nil {
 		log.Fatalf("%+v\n", err)

@@ -63,9 +63,9 @@ func ssd2ss(url string) (string, error) {
 		return "", errors.Wrap(err, "unmarshal ShadowsocksD subscription failed")
 	}
 
-	ssConfigs := SsConfigList{}
+	commonConfigList := CommonConfigList{}
 	for _, sc := range ssdConfig.Servers {
-		ssConfigs = append(ssConfigs, SsConfig{
+		commonConfigList = append(commonConfigList, CommonConfig{
 			Server:     sc.Server,
 			ServerPort: ssdConfig.Port,
 			Method:     ssdConfig.Encryption,
@@ -74,10 +74,10 @@ func ssd2ss(url string) (string, error) {
 		})
 	}
 
-	return ssConfigs.getSubscription(), nil
+	return commonConfigList.getSubscription(), nil
 }
 
-type SsConfig struct {
+type CommonConfig struct {
 	Server     string
 	ServerPort int
 	Method     string
@@ -85,14 +85,14 @@ type SsConfig struct {
 	Remarks    string
 }
 
-func (sc *SsConfig) getSubscription() string {
+func (sc *CommonConfig) getSubscription() string {
 	encodedUserInfo := base64.RawURLEncoding.EncodeToString([]byte(sc.Method + ":" + sc.Password))
 	return "ss://" + encodedUserInfo + "@" + sc.Server + ":" + strconv.Itoa(sc.ServerPort) + "#" + url.QueryEscape(sc.Remarks)
 }
 
-type SsConfigList []SsConfig
+type CommonConfigList []CommonConfig
 
-func (scl *SsConfigList) getSubscription() string {
+func (scl *CommonConfigList) getSubscription() string {
 	result := ""
 	for _, v := range *scl {
 		result += v.getSubscription() + "\n"

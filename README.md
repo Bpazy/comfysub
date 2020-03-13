@@ -1,4 +1,6 @@
 # comfysub 
+[![Build status](https://github.com/Bpazy/comfysub/workflows/Go/badge.svg)](https://github.com/Bpazy/comfysub/actions)
+
 Comfortable subscription, 徜徉订阅。  
 适用于 Shadowsocks, V2ray 等订阅间互相转换。
 

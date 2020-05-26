@@ -1,0 +1,7 @@
+version: '3'
+services:
+  comfysub:
+    image: bpazy/comfysub
+    environment:
+      - PORT=:8080 # 服务运行的端口号
+    restart: always

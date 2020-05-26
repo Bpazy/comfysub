@@ -1,5 +1,6 @@
 # comfysub 
 ![Build](https://github.com/Bpazy/comfysub/workflows/Build/badge.svg)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Bpazy_comfysub&metric=alert_status)](https://sonarcloud.io/dashboard?id=Bpazy_comfysub)
 
 Comfortable subscription, 徜徉订阅。  
 适用于 Shadowsocks, V2ray 等订阅间互相转换。

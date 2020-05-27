@@ -9,6 +9,17 @@ Comfortable subscription, 徜徉订阅。
 1. [x] ShadowsocksD -> Shadowsocks(SIP002)
 
 ## 使用
+### Docker Compose (推荐)
+1. 下载 [docker-compose.yml](./docker-compose.yml) 到任意位置;
+2. 编辑 docker-compose.yml 文件;
+3. 启动: `docker-compose up -d`
+
+### Docker
+```shell 
+docker run --name comfysub -e PORT=:8080 bpazy/comfysub
+```
+
+### 直接运行
 1. 在 releases 中下载；
 2. 运行：
 ```

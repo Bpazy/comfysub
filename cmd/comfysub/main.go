@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"time"
 )
 
 var port string
@@ -64,14 +65,17 @@ func ssd2ssHandler() func(c *gin.Context) {
 
 func ssd2ss(url string) (string, error) {
 	client := resty.New()
+	client.SetTimeout(5 * time.Second)
 	resp, err := client.R().Get(url)
 	if err != nil {
 		return "", errors.Wrap(err, "get ShadowsocksD subscription failed")
 	}
 
 	var decodedSsdSubscription []byte
-	decodedSsdSubscription, err = base64.RawURLEncoding.DecodeString(string(resp.Body())[6:])
+	sb := string(resp.Body())[6:]
+	decodedSsdSubscription, err = base64.StdEncoding.DecodeString(sb)
 	if err != nil {
+		log.Println("decode ShadowsocksD subscription failed, body is: " + sb)
 		return "", errors.Wrap(err, "decode ShadowsocksD subscription failed")
 	}
 

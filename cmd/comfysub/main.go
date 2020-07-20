@@ -65,9 +65,10 @@ func ssd2ssHandler() func(c *gin.Context) {
 
 func ssd2ss(url string) (string, error) {
 	client := resty.New()
-	client.SetTimeout(5 * time.Second)
+	client.SetTimeout(10 * time.Second)
 	resp, err := client.R().Get(url)
 	if err != nil {
+		log.Printf("get ShadowsocksD subscription failed: %+v\n", err)
 		return "", errors.Wrap(err, "get ShadowsocksD subscription failed")
 	}
 

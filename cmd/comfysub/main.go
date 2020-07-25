@@ -34,7 +34,8 @@ var ssd2ssHomePageHtml = template.Must(template.New("ssd2ssHomePageHtml").Parse(
 `))
 
 func main() {
-	r := gin.Default()
+	r := gin.New()
+	r.Use(gin.Recovery())
 
 	r.SetHTMLTemplate(ssd2ssHomePageHtml)
 	r.GET("/", func(c *gin.Context) {

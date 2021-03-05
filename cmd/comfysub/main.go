@@ -7,8 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-resty/resty/v2"
 	"github.com/pkg/errors"
+	"github.com/sirupsen/logrus"
 	"html/template"
-	"log"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -44,7 +44,7 @@ func main() {
 
 	r.GET("/ssd2ss", ssd2ssHandler())
 	if err := r.Run(port); err != nil {
-		log.Fatalf("%+v\n", err)
+		logrus.Fatalf("%+v\n", err)
 	}
 }
 
@@ -69,15 +69,20 @@ func ssd2ss(url string) (string, error) {
 	client.SetTimeout(10 * time.Second)
 	resp, err := client.R().Get(url)
 	if err != nil {
-		log.Printf("get ShadowsocksD subscription failed: %+v\n", err)
+		logrus.Printf("get ShadowsocksD subscription failed: %+v\n", err)
 		return "", errors.Wrap(err, "get ShadowsocksD subscription failed")
 	}
 
 	var decodedSsdSubscription []byte
-	sb := string(resp.Body())[6:]
+	s := string(resp.Body())
+	if len(s) < 7 {
+		logrus.Printf("get response: %s", s)
+		return "", errors.New("get ShadowsocksD subscription failed: Got empty response")
+	}
+	sb := s[6:]
 	decodedSsdSubscription, err = base64.StdEncoding.DecodeString(sb)
 	if err != nil {
-		log.Println("decode ShadowsocksD subscription failed, body is: " + sb)
+		logrus.Println("decode ShadowsocksD subscription failed, body is: " + sb)
 		return "", errors.Wrap(err, "decode ShadowsocksD subscription failed")
 	}
 
